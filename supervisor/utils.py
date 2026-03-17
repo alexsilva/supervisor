@@ -21,6 +21,9 @@ def time_machine(frame_time):
 
 		if delta_time < frame_time:
 			time_to_sleep = frame_time - delta_time
+			# Fix the bug caused by time backward adjustment that makes delta_time negative,
+			# which would cause time_to_sleep to become a very large number and make the program sleep too long
+			time_to_sleep = min(time_to_sleep, frame_time)
 			time.sleep(time_to_sleep)
 
 		last_frame = time.time()
